@@ -1,1 +1,1 @@
-# rest-web-service
+Exemplo de serviço REST usando JBoss RESTEasy.
