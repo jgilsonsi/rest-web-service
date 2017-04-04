@@ -1,1 +1,1 @@
-Exemplo de serviço REST usando JBoss RESTEasy.
+Projeto de serviço REST usando JBoss RESTEasy.
