@@ -14,6 +14,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -58,33 +59,33 @@ public class JUserService {
     // create user
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response postUserJSON(JUser user) {
+        user.setId(users.size() + 1);
         users.put(user.getId(), user);
-        String result = "Usuário " + user.getName() + " criado com sucesso!";
-        return Response.status(200).entity(result).build();
+        return Response.status(200).entity(user).build();
     }
 
     // alter user
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response putUserJSON(JUser user) {
         users.put(user.getId(), user);
-        String result = "Usuário " + user.getName() + " alterado com sucesso!";
-        return Response.status(200).entity(result).build();
+        return Response.status(200).entity(user).build();
     }
 
     // delete user
     @DELETE
-    @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public JUser deleteUserJSON(@PathParam("id") int id) {
-        JUser userTemp = users.get(id);
+    public Response deleteUserJSON(@QueryParam("id") int id) {
+        JUser user = users.get(id);
         users.remove(id);
-        return userTemp;
+        return Response.status(200).entity(user).build();
     }
 
     /* 
         Formato do objeto JSON:
-       {user:{"id": "10","name": "testename","age": "33"}}
+       {"id": "10","name": "testename","age": "33"}
      */
 }
